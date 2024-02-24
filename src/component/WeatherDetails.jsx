@@ -1,21 +1,11 @@
 import React, { useState } from 'react';
 import Style from './WeatherStyle'
-import sun from '../assets/sun.png';
-import cloudy from '../assets/cloudy.png';
 import cloud from '../assets/cloud.png';
 import wind from '../assets/wind.png';
-import snow from '../assets/snow.png';
 
-const WeatherDetails = () => {
 
-    const [icon, setIcon] = useState(snow);
-    const [temp, setTemp] = useState(0);
-    const [city, setCity] = useState("chennai");
-    const [country, setCountry] = useState("IN");
-    const [lat, setLat] = useState(0);
-    const [log, setLog] = useState(0);
-    const [windEl, setWindEl] = useState(0);
-    const [humidity, setHumidity] = useState(0);
+const WeatherDetails = ({ icon, temp, city, country, lat, log, windEl, humidity }) => {
+
 
     return (
         <>

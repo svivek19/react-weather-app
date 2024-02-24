@@ -8,16 +8,6 @@ import clearIcon from './assets/sun.png';
 import drizzleIcon from './assets/cloudy.png';
 import snow from './assets/snow.png';
 import rainIcon from './assets/rain.png';
-import styled from 'styled-components';
-
-
-const ErrHandle = styled.div`
-  margin-top:10px;
-  color:lightgray;
-  font-size:20px;
-  font-weight:400;
-  text-align:center;
-`;
 
 const App = () => {
 
@@ -53,7 +43,7 @@ const App = () => {
     "010n": rainIcon,
     "013d": snow,
     "013n": snow,
-  }
+  };
 
   const search = async () => {
     setLoading(true);
@@ -122,9 +112,9 @@ const App = () => {
 
         {!loading && !cityNotFound && <WeatherDetails icon={icon} temp={temp} city={city} country={country} lat={lat} log={log} windEl={windEl} humidity={humidity} />}
 
-        {loading && <ErrHandle>Loading...</ErrHandle>}
-        {error && <ErrHandle>{error}</ErrHandle>}
-        {cityNotFound && <ErrHandle>City not found!</ErrHandle>}
+        {loading && <MainStyle.ErrHandle>Loading...</MainStyle.ErrHandle>}
+        {error && <MainStyle.ErrHandle>{error}</MainStyle.ErrHandle>}
+        {cityNotFound && <MainStyle.ErrHandle>City not found!</MainStyle.ErrHandle>}
 
         <MainStyle.CopyrightEl>Designed by <span>Vivekananthan</span></MainStyle.CopyrightEl>
       </MainStyle.InnerDiv>

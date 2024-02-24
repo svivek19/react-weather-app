@@ -119,7 +119,8 @@ const App = () => {
             <SearchIcon />
           </IconButton>
         </MainStyle.InputContainer>
-        <WeatherDetails icon={icon} temp={temp} city={city} country={country} lat={lat} log={log} windEl={windEl} humidity={humidity} />
+
+        {!loading && !cityNotFound && <WeatherDetails icon={icon} temp={temp} city={city} country={country} lat={lat} log={log} windEl={windEl} humidity={humidity} />}
 
         {loading && <ErrHandle>Loading...</ErrHandle>}
         {error && <ErrHandle>{error}</ErrHandle>}

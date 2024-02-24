@@ -4,9 +4,10 @@ import SearchIcon from '@mui/icons-material/Search';
 import WeatherDetails from './component/WeatherDetails';
 import MainStyle from './component/MainStyle';
 
-import sun from './assets/sun.png';
-import cloudy from './assets/cloudy.png';
+import clearIcon from './assets/sun.png';
+import drizzleIcon from './assets/cloudy.png';
 import snow from './assets/snow.png';
+import rainIcon from './assets/rain.png';
 
 
 const App = () => {
@@ -26,6 +27,23 @@ const App = () => {
   const [cityNotFound, setCityNotFound] = useState(false);
   const [loading, setLoading] = useState(false);
 
+  const weatherIconMap = {
+    "01d": clearIcon,
+    "01n": clearIcon,
+    "02d": clearIcon,
+    "02n": clearIcon,
+    "03d": drizzleIcon,
+    "03n": drizzleIcon,
+    "04d": drizzleIcon,
+    "04n": drizzleIcon,
+    "09d": rainIcon,
+    "09n": rainIcon,
+    "010d": rainIcon,
+    "010n": rainIcon,
+    "013d": snow,
+    "013n": snow,
+  }
+
   const search = async () => {
     setLoading(true);
     let url = `https://api.openweathermap.org/data/2.5/weather?q=${text}&appid=${apiId}&units=Metric`;
@@ -33,7 +51,7 @@ const App = () => {
       let res = await fetch(url);
       let data = await res.json();
 
-      if(data.cod === "404"){
+      if (data.cod === "404") {
         console.log("City not found");
         setCityNotFound(true);
         setLoading(false);
@@ -45,9 +63,11 @@ const App = () => {
       setTemp(Math.floor(data.main.temp));
       setCity(data.name);
       setCountry(data.sys.country);
-      setLat(data.coord.lat)
+      setLat(data.coord.lat);
       setLog(data.coord.lon);
-
+      setCityNotFound(false);
+      const weatherIconCode = data.weather[0].icon;
+      setIcon(weatherIconMap[weatherIconCode] || clearIcon);
 
 
     } catch (err) {

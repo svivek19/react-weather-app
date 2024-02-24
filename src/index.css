@@ -1,11 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
 
-*{
+* {
     font-family: "Open Sans", sans-serif;
 }
-body{
+
+body {
     background: url('https://cdn.pixabay.com/photo/2023/03/16/18/07/background-7857286_1280.jpg');
     color: white;
+    width: 100vw;
+    height: 100vh;
     background-size: cover;
     overflow-x: hidden;
+    background-attachment: fixed;
 }

@@ -1,5 +1,5 @@
 import { IconButton, InputBase } from '@mui/material';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import SearchIcon from '@mui/icons-material/Search';
 import WeatherDetails from './component/WeatherDetails';
 import MainStyle from './component/MainStyle';
@@ -8,24 +8,35 @@ import clearIcon from './assets/sun.png';
 import drizzleIcon from './assets/cloudy.png';
 import snow from './assets/snow.png';
 import rainIcon from './assets/rain.png';
+import styled from 'styled-components';
 
+
+const ErrHandle = styled.div`
+  margin-top:10px;
+  color:lightgray;
+  font-size:20px;
+  font-weight:400;
+  text-align:center;
+`;
 
 const App = () => {
 
   const apiId = import.meta.env.VITE_API_ID;
 
-  const [text, setText] = useState('');
+  const [text, setText] = useState('Madurai');
 
   const [icon, setIcon] = useState(snow);
   const [temp, setTemp] = useState(0);
-  const [city, setCity] = useState("chennai");
-  const [country, setCountry] = useState("IN");
+  const [city, setCity] = useState("");
+  const [country, setCountry] = useState("");
   const [lat, setLat] = useState(0);
   const [log, setLog] = useState(0);
   const [windEl, setWindEl] = useState(0);
   const [humidity, setHumidity] = useState(0);
+
   const [cityNotFound, setCityNotFound] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState();
 
   const weatherIconMap = {
     "01d": clearIcon,
@@ -72,6 +83,7 @@ const App = () => {
 
     } catch (err) {
       console.error("An error occurred:", err.message);
+      setError("An error occurred while fetching weather data.");
     } finally {
       setLoading(false);
     }
@@ -86,6 +98,10 @@ const App = () => {
       search();
     }
   }
+
+  useEffect(() => {
+    search()
+  }, [])
 
   return (
     <MainStyle.Main>
@@ -104,6 +120,11 @@ const App = () => {
           </IconButton>
         </MainStyle.InputContainer>
         <WeatherDetails icon={icon} temp={temp} city={city} country={country} lat={lat} log={log} windEl={windEl} humidity={humidity} />
+
+        {loading && <ErrHandle>Loading...</ErrHandle>}
+        {error && <ErrHandle>{error}</ErrHandle>}
+        {cityNotFound && <ErrHandle>City not found!</ErrHandle>}
+
         <MainStyle.CopyrightEl>Designed by <span>Vivekananthan</span></MainStyle.CopyrightEl>
       </MainStyle.InnerDiv>
     </MainStyle.Main>
